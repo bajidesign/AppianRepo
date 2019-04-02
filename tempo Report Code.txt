@@ -1,0 +1,40 @@
+load(
+  local!ForeclosureRequestRisk:rule!CLS_Get_ForeclosureRequestCount_RiskType().data,
+  local!RiskType:
+  apply(
+    displayvalue(_,cons!CLS_CV_RISKTYPE,cons!CLS_CL_RISKTYPE,"N/A"),
+  local!ForeclosureRequestRisk.riskType
+  ),
+a!dashboardLayout(
+   firstColumnContents:{
+     a!sectionLayout(
+        firstColumnContents:{
+          a!pieChartField(
+            label:"Risk Type",
+            labelPosition: "ABOVE",
+            series:{
+              apply(
+              a!chartSeries(label: _,data: _),
+            merge(
+              local!ForeclosureRequestRisk.totalRiskType,
+              local!RiskType
+              
+          
+            )
+            
+            )
+            
+            },
+            showDataLabels:true
+          )
+        },
+        secondColumnContents:{
+          
+        }
+     )
+   },
+   secondColumnContents:{
+     
+   }
+)
+)

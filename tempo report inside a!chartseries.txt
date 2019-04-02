@@ -1,0 +1,11 @@
+load(
+  local!riskType,
+  a!chartSeries(
+    label:ri!label,
+    data:ri!data,
+    links:a!dynamicLink(
+       value:ri!label,
+       saveInto:{ri!linkValue}
+    )
+  )
+)

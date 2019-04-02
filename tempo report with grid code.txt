@@ -1,0 +1,62 @@
+load(
+  local!ForeclosureRequestRisk:rule!CLS_Get_ForeclosureRequestCount_RiskType().data,
+  local!RiskType:
+  apply(
+    displayvalue(_,cons!CLS_CV_RISKTYPE,cons!CLS_CL_RISKTYPE,"N/A"),
+  local!ForeclosureRequestRisk.riskType
+  ),
+  local!linkvalue:null,
+  with(
+    local!link:local!linkvalue,
+a!dashboardLayout(
+   firstColumnContents:{
+     a!sectionLayout(
+        firstColumnContents:{
+          a!columnChartField(
+            label:"Risk Type",
+            labelPosition: "ABOVE",
+            series:{
+              a!applyComponents(
+              rule!CLS_RPT_ChartSeries(
+              label: _,
+              data: _,
+              linkValue:local!link
+              ),
+            merge(
+              local!RiskType,
+              local!ForeclosureRequestRisk.totalRiskType
+            )
+            
+            )
+            
+            
+            
+            },
+            showDataLabels:true,
+            xAxisTitle:"List of Risk Types",
+            yAxisTitle :"Value of Risk Type"
+            
+          ),
+          a!textField(
+            label:"User Click on",
+            value:local!link
+          ),
+          if(
+              isnull(local!link),
+              {},
+              rule!CLS_VehicleDetailsByRiskType_Grid_S(
+                riskType:displayvalue(local!link,cons!CLS_CL_RISKTYPE,cons!CLS_CV_RISKTYPE,0)
+              )
+              )
+        },
+        secondColumnContents:{
+          
+        }
+     )
+   },
+   secondColumnContents:{
+     
+   }
+)
+)
+)
